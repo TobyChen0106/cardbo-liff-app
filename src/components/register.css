@@ -1,0 +1,13 @@
+.row {
+    max-width: 100%;
+    text-align: center;
+}
+
+.register{
+    /* font-size: 1.5rem; */
+}
+
+.slider-contain{
+    padding-left: 5%;
+    padding-right: 5%;
+}

@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import './register.css'
+
+//slider
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
+
 const liff = window.liff;
 
 class App extends Component {
@@ -9,7 +14,11 @@ class App extends Component {
             displayName: props.displayName,
             userId: props.userId,
             pictureUrl: props.pictureUrl,
-            statusMessage: props.statusMessage
+            statusMessage: props.statusMessage,
+            
+            nickName: "",
+            age: 0,
+
         };
     }
 
@@ -19,21 +28,29 @@ class App extends Component {
     formOnSubmit = () => {
 
     }
+    handleNickNameChange = (event) =>{
+        this.setState({nickName: event.target.value});
+    }
+    changeAge = (event) =>{
+        this.setState({age: event});
+    }
     render() {
         return (
-            <div>
+            <div className="register">
                 <div id="cardbo-register-data" class="row">
                     <h2>會員註冊說明</h2>
                     <div class="info" id='info'>"我是說明"</div>
                 </div>
 
-                <form action="#" onsubmit={() => this.formOnSubmit()} id="register-form">
+                <form action="#" onSubmit={() => this.formOnSubmit()} id="register-form">
                     <div class="row">
                         <div>暱稱</div>
-                        <input type="text" name="text" value="" id="name" />
+                        <input id="nick-name" type="text" value={this.state.nickName} onChange={this.handleNickNameChange} />
                     </div>
                     <div class="row">
                         <div>年齡</div>
+                        {this.state.age}
+                        <div className="slider-contain"> <Slider min={0} max={100} defaultValue={0} onChange={this.changeAge}/></div>
                     </div>
                     <div class="row">
                         <div>性別</div>
