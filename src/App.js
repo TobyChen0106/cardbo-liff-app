@@ -10,10 +10,10 @@ class App extends Component {
     super(props);
 
     this.state = {
-      displayName : '',
-      userId : '',
-      pictureUrl : '',
-      statusMessage : ''
+      displayName: '',
+      userId: '',
+      pictureUrl: '',
+      statusMessage: ''
     };
 
     this.initialize = this.initialize.bind(this);
@@ -28,12 +28,12 @@ class App extends Component {
     liff.init(async (data) => {
       let profile = await liff.getProfile();
       this.setState({
-        displayName : profile.displayName,
-        userId : profile.userId,
-        pictureUrl : profile.pictureUrl,
-        statusMessage : profile.statusMessage
+        displayName: profile.displayName,
+        userId: profile.userId,
+        pictureUrl: profile.pictureUrl,
+        statusMessage: profile.statusMessage
       });
-    }); 
+    });
   }
 
   closeApp(event) {
@@ -50,13 +50,13 @@ class App extends Component {
     return true;
   }
   render() {
-    if(this.UserRegistered){
+    if (this.UserRegistered) {
       return (
-        <RegisterPage 
-        displayName={this.state.displayName}
-        userId={this.state.userId}
-        pictureUrl={this.state.pictureUrl}
-        statusMessage={this.state.statusMessage}/>
+        <RegisterPage
+          displayName={this.state.displayName}
+          userId={this.state.userId}
+          pictureUrl={this.state.pictureUrl}
+          statusMessage={this.state.statusMessage} />
       );
     }
   }
