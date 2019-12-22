@@ -5,7 +5,6 @@
   "scripts": {
     "start": "node server.js",
     "startlocal": "react-scripts start",
-    "start:service": "node ./service.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
