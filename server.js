@@ -4,6 +4,18 @@ const path = require('path');
 const port = process.env.PORT || 80;
 const app = express();
 
+// mongodb
+const mongoose = require('mongoose');
+mongoURL = "mongodb+srv://Toby0106:dbforcardbo@cluster0-gfwld.mongodb.net/cardbo-db?retryWrites=true&w=majority"
+mongoose.connect(mongoURL, {useNewUrlParser: true});
+db = mongoose.connection;
+db.on('error', e => {
+	console.log(e);
+})
+db.once('open', () => {
+	console.log('MongoDB connected!');
+})
+
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
 
@@ -16,3 +28,4 @@ app.get('/*', function (req, res) {
 });
 
 app.listen(port);
+

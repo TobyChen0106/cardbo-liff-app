@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import './register.css'
-
 //slider
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
+// Liff
 const liff = window.liff;
+
+// mongoose
+const mongoose = require('mongoose');
+const User = require('../models/User')
+
+
 
 class App extends Component {
     constructor(props) {
@@ -15,10 +21,13 @@ class App extends Component {
             userId: props.userId,
             pictureUrl: props.pictureUrl,
             statusMessage: props.statusMessage,
-            
+
             nickName: "",
             age: 0,
+            gender: "other",
+            cards: [],
 
+            agreeCheck: false,
         };
     }
 
@@ -26,13 +35,52 @@ class App extends Component {
 
     }
     formOnSubmit = () => {
+        if(this.state.age === 0){
+            alert('請輸入年齡!');
+        }
+        else if (!this.state.agreeCheck) {
+            alert('請閱讀並同意使用者服務條款!');
+        }else {
+            const newUser = new User({
+                lineID: this.state.userId,
+                displayName: this.state.displayName,
+                nickName: this.state.nickName,
+                age: this.state.age,
+                gender: this.state.gender,
+                cards: this.state.cards,
+            });
 
+            newUser.save(function(err, user){
+                if (err){
+                    console.log(err);
+                }
+            }).then((user) => {
+                console.log('New user created!');
+                console.log(user);
+            })
+            liff.sendMessages([{
+                type: 'text',
+                text: "我填完囉!"
+            }, {
+                type: 'sticker',
+                packageId: '2',
+                stickerId: '144'
+            }]).catch(function (error) {
+                window.alert("Error sending message: " + error);
+            }).then(() => {
+                liff.closeWindow();
+            })
+        }
     }
-    handleNickNameChange = (event) =>{
-        this.setState({nickName: event.target.value});
+    handleNickNameChange = (event) => {
+        this.setState({ nickName: event.target.value });
     }
-    changeAge = (event) =>{
-        this.setState({age: event});
+    changeAge = (event) => {
+        this.setState({ age: event });
+    }
+
+    handleChangeCheck = (event) => {
+        this.setState({ agreeCheck: !this.state.agreeCheck });
     }
     render() {
         return (
@@ -50,7 +98,7 @@ class App extends Component {
                     <div class="row">
                         <div>年齡</div>
                         {this.state.age}
-                        <div className="slider-contain"> <Slider min={0} max={100} defaultValue={0} onChange={this.changeAge}/></div>
+                        <div className="slider-contain"> <Slider min={0} max={100} defaultValue={0} onChange={this.changeAge} /></div>
                     </div>
                     <div class="row">
                         <div>性別</div>
@@ -63,7 +111,7 @@ class App extends Component {
                         <input type="text" name="text" value="" id="" />
                     </div>
                     <div class="row">
-                        <input type="checkbox" name="checkbox" value="check" id="agree" />
+                        <input id="agree" type="checkbox" name="checkbox" value="check" defaultChecked={this.state.agreeCheck} onChange={this.handleChangeCheck} />
                         我已閱讀並同意<a href="#">使用者服務條款</a>
                     </div>
                     <div class="row">
