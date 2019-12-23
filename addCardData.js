@@ -22,6 +22,7 @@ function loop() {
             rl.question('Enter nickname: ', (nickName) => {
                 rl.question('Enter gender: ', (gender) => {
                     rl.question('Enter card: ', (card) => {
+                        console.log(User);
                         const newUser = new User({
                             lineID: lineID,
                             displayName: displayName,

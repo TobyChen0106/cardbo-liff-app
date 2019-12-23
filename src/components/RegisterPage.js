@@ -8,7 +8,9 @@ import 'rc-slider/assets/index.css';
 const liff = window.liff;
 
 // mongoose
-const User = require('../models/User')
+const mongoose = require('mongoose');
+const User = require('../models/User');
+// import User from '../models/User.js'
 
 
 
@@ -34,12 +36,15 @@ class App extends Component {
 
     }
     formOnSubmit = () => {
+        console.log("hahaha");
+        console.log(User);
         if(this.state.age === 0){
             alert('請輸入年齡!');
         }
         else if (!this.state.agreeCheck) {
             alert('請閱讀並同意使用者服務條款!');
         }else {
+<<<<<<< HEAD
             const newUser = new User({
                 
                 lineID: this.state.userId,
@@ -49,15 +54,27 @@ class App extends Component {
                 gender: this.state.gender,
                 cards: this.state.cards
             });
+=======
+            alert(User);
+            // const newUser = new User({
+            //     lineID: this.state.userId,
+            //     displayName: this.state.displayName,
+            //     nickName: this.state.nickName,
+            //     age: this.state.age,
+            //     gender: this.state.gender,
+            //     cards: this.state.cards,
+            // });
+            
+            // newUser.save(function(err, user){
+            //     if (err){
+            //         console.log(err);
+            //     }
+            // }).then((user) => {
+            //     console.log('New user created!');
+            //     console.log(user);
+            // });
+>>>>>>> c8b91634c1620fe2d4e42ace93380105389457a1
 
-            newUser.save(function(err, user){
-                if (err){
-                    console.log(err);
-                }
-            }).then((user) => {
-                console.log('New user created!');
-                console.log(user);
-            })
             liff.sendMessages([{
                 type: 'text',
                 text: "我填完囉!"

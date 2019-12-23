@@ -1,8 +1,10 @@
 const express = require('express');
 
 const path = require('path');
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 12345;
 const app = express();
+
+const apiRoute = require('./src/route/api');
 
 // mongodb
 const mongoose = require('mongoose');
@@ -16,8 +18,10 @@ db.once('open', () => {
 	console.log('MongoDB connected!');
 })
 
+
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
+app.use('/user', apiRoute);
 
 app.get('/ping', function (req, res) {
   return res.send('pong');
