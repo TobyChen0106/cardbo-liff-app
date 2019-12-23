@@ -5,11 +5,11 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema({
     lineID: {
         type: String,
-        required: true
+        // required: true
     },
     displayName: {
         type: String,
-        required: true
+        // required: true
     },
     nickName: {
         type: String,

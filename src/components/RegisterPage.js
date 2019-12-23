@@ -8,7 +8,6 @@ import 'rc-slider/assets/index.css';
 const liff = window.liff;
 
 // mongoose
-const mongoose = require('mongoose');
 const User = require('../models/User')
 
 
@@ -42,12 +41,13 @@ class App extends Component {
             alert('請閱讀並同意使用者服務條款!');
         }else {
             const newUser = new User({
+                
                 lineID: this.state.userId,
                 displayName: this.state.displayName,
                 nickName: this.state.nickName,
                 age: this.state.age,
                 gender: this.state.gender,
-                cards: this.state.cards,
+                cards: this.state.cards
             });
 
             newUser.save(function(err, user){
