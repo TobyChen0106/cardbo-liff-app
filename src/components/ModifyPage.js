@@ -19,7 +19,7 @@ class App extends Component {
         super(props);
         this.state = {
             displayName: '??',
-            userId: '4567787',
+            userId: '888',
 
             nickName: "",
             age: 20,
