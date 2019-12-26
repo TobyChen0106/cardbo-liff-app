@@ -27,8 +27,8 @@ class App extends Component {
         statusMessage: profile.statusMessage
       });
     });
-    this.initialize = this.initialize.bind(this);
-    this.closeApp = this.closeApp.bind(this);
+    // this.initialize = this.initialize.bind(this);
+    // this.closeApp = this.closeApp.bind(this);
   }
 
   componentDidMount() {
