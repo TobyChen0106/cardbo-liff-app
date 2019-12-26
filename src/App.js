@@ -17,25 +17,20 @@ class App extends Component {
       userRegistered: false
     };
 
-    // liff.getProfile().then((profile) => {
-    //   this.setState({
-    //     displayName: profile.displayName,
-    //     userId: profile.userId
-    //   });
-    // }).catch(function (error) {
-    //   window.alert("Error getting profile: " + error);
-    // })
     this.initialize = this.initialize.bind(this);
     this.closeApp = this.closeApp.bind(this);
   }
 
   initialize() {
     liff.init(async (data) => {
-      let profile = await liff.getProfile()
+      let profile = await liff.getProfile().catch(function (error) {
+        window.alert("Error getting profile: " + error);
+      })
       this.setState({
         displayName: profile.displayName,
         userId: profile.userId,
       });
+      window.alert("userId" + profile.userId);
     });
   }
 
@@ -50,8 +45,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('load', this.initialize);
-
+    // window.addEventListener('load', this.initialize);
+    this.initialize();
     fetch('/api/check-users', {
       method: 'POST',
       body: JSON.stringify({ userID: this.state.userId }),
