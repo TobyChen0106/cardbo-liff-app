@@ -18,6 +18,12 @@ class App extends Component {
 
       userRegistered: false
     };
+    
+    this.initialize = this.initialize.bind(this);
+    this.closeApp = this.closeApp.bind(this);
+  }
+  
+  initialize(){
     liff.init(async (data) => {
       let profile = await liff.getProfile();
       this.setState({
@@ -27,8 +33,6 @@ class App extends Component {
         statusMessage: profile.statusMessage
       });
     });
-    // this.initialize = this.initialize.bind(this);
-    // this.closeApp = this.closeApp.bind(this);
   }
 
   componentDidMount() {

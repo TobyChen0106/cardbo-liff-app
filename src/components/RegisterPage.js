@@ -62,20 +62,20 @@ class App extends Component {
             ).then((data) => {
                 console.log(data);
             })
-            // .then(() => {
-            //     liff.sendMessages([{
-            //         type: 'text',
-            //         text: "我填完囉!"
-            //     }, {
-            //         type: 'sticker',
-            //         packageId: '2',
-            //         stickerId: '144'
-            //     }])
-            // }).catch(function (error) {
-            //     window.alert("Error sending message: " + error);
-            // }).then(() => {
-            //     liff.closeWindow();
-            // })
+            .then(() => {
+                liff.sendMessages([{
+                    type: 'text',
+                    text: "我填完囉!"
+                }, {
+                    type: 'sticker',
+                    packageId: '2',
+                    stickerId: '144'
+                }])
+            }).catch(function (error) {
+                window.alert("Error sending message: " + error);
+            }).then(() => {
+                liff.closeWindow();
+            })
         }
     }
     handleNickNameChange = (event) => {
@@ -105,7 +105,7 @@ class App extends Component {
             <div className="register chineese-font">
                 <div id="cardbo-register-data" className="row">
                     <div className="register-title-wrapper">卡伯會員註冊</div>
-                    <div className="register-title-info" >歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
+        <div className="register-title-info" >{this.state.displayName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
                 </div>
 
                 <div className="register-form-contaniner">
