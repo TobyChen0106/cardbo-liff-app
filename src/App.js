@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css'
 
 import RegisterPage from './components/RegisterPage'
+import ModifyPage from './components/ModifyPage'
 
 const liff = window.liff;
 
@@ -13,18 +14,10 @@ class App extends Component {
       displayName: '',
       userId: '',
       pictureUrl: '',
-      statusMessage: ''
+      statusMessage: '',
+
+      userRegistered: false
     };
-
-    this.initialize = this.initialize.bind(this);
-    this.closeApp = this.closeApp.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener('load', this.initialize);
-  }
-
-  initialize() {
     liff.init(async (data) => {
       let profile = await liff.getProfile();
       this.setState({
@@ -34,7 +27,33 @@ class App extends Component {
         statusMessage: profile.statusMessage
       });
     });
+    this.initialize = this.initialize.bind(this);
+    this.closeApp = this.closeApp.bind(this);
   }
+
+  componentDidMount() {
+    window.addEventListener('load', this.initialize);
+
+    fetch('/api/check-users', {
+      method: 'POST',
+      body: JSON.stringify({ userID: this.state.userId }),
+      headers: new Headers({
+        'Content-Type': 'application/json'
+      })
+    }).then(
+      res => res.json()
+    ).then(data => {
+      console.log(data);
+      if (data.IDregistered === true) {
+        console.log("[ERROR] ID registered!")
+        this.setState({ userRegistered: true })
+      } else {
+        // console.log("ID not registered yet")
+        this.setState({ userRegistered: false })
+      }
+    });
+  }
+
 
   closeApp(event) {
     event.preventDefault();
@@ -46,11 +65,9 @@ class App extends Component {
     });
   }
 
-  UserRegistered = () => {
-    return true;
-  }
+
   render() {
-    if (this.UserRegistered) {
+    if (this.state.userRegistered === false) {
       return (
         <RegisterPage
           displayName={this.state.displayName}
@@ -58,6 +75,14 @@ class App extends Component {
           pictureUrl={this.state.pictureUrl}
           statusMessage={this.state.statusMessage} />
       );
+    } else {
+      return (
+        <ModifyPage
+          displayName={this.state.displayName}
+          userId={this.state.userId}
+          pictureUrl={this.state.pictureUrl}
+          statusMessage={this.state.statusMessage} />
+      )
     }
   }
 }
