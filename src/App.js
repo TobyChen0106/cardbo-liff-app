@@ -21,27 +21,26 @@ class App extends Component {
     this.closeApp = this.closeApp.bind(this);
   }
 
-  initialize() {
-    liff.init(async (data) => {
-      let profile = await liff.getProfile();
-      this.setState({
-        displayName: profile.displayName,
-        userId: profile.userId,
-      });
-    });
-  }
-
   // initialize() {
   //   liff.init(async (data) => {
   //     let profile = await liff.getProfile();
   //     this.setState({
   //       displayName: profile.displayName,
   //       userId: profile.userId,
-  //       pictureUrl: profile.pictureUrl,
-  //       statusMessage: profile.statusMessage
   //     });
   //   });
   // }
+
+  initialize() {
+    liff.init(async (data) => {
+      let profile = await liff.getProfile();
+      this.setState({
+        displayName: profile.displayName,
+        userId: profile.userId
+      });
+    });
+  }
+
   closeApp(event) {
     event.preventDefault();
     liff.sendMessages([{
@@ -92,7 +91,8 @@ class App extends Component {
       return (
         <ModifyPage
           displayName={this.state.displayName}
-          userId={this.state.userId} />
+          userId={this.state.userId} 
+          closeApp={this.closeApp}/>
       )
     }
   }
