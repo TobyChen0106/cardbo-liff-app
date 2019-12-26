@@ -54,7 +54,7 @@ class App extends Component {
 
   componentDidMount() {
     window.addEventListener('load', this.initialize);
-    this.initialize();
+    // this.initialize();
     fetch('/api/check-users', {
       method: 'POST',
       body: JSON.stringify({ userID: this.state.userId }),
