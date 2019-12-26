@@ -18,8 +18,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: this.props.displayName,
-            userId: this.props.userId,
+            displayName: '??',
+            userId: '4567787',
 
             nickName: "",
             age: 20,
@@ -29,6 +29,13 @@ class App extends Component {
             agreeCheck: false,
 
         };
+        liff.init(async (data) => {
+            let profile = await liff.getProfile();
+            this.setState({
+                displayName: profile.displayName,
+                userId: profile.userId
+            });
+        });
     }
 
 
@@ -59,8 +66,16 @@ class App extends Component {
                 res => res.json()
             ).then((data) => {
                 console.log(data);
+            }).then(() => {
+                liff.sendMessages([{
+                    type: 'text',
+                    text: "我填完囉!"
+                }])
+            }).catch(function (error) {
+                window.alert("Error sending message: " + error);
+            }).then(() => {
+                liff.closeWindow();
             })
-            .then( () => this.props.closeApp)
         }
     }
     handleNickNameChange = (event) => {
@@ -90,7 +105,7 @@ class App extends Component {
             <div className="register chineese-font">
                 <div id="cardbo-register-data" className="row">
                     <div className="register-title-wrapper">卡伯會員註冊</div>
-        <div className="register-title-info" >{this.state.displayName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
+                    <div className="register-title-info" >{this.state.displayName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
                 </div>
 
                 <div className="register-form-contaniner">
@@ -99,7 +114,7 @@ class App extends Component {
                             <label>您希望我們如何稱呼您?</label>
                         </div>
                         <div className="nick-name-input-container">
-                            <input className="nick-name-input" type="text" 
+                            <input className="nick-name-input" type="text"
                                 value={this.state.nickName} onChange={this.handleNickNameChange} />
                         </div>
                     </div>

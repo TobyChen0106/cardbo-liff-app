@@ -17,19 +17,9 @@ class App extends Component {
       userRegistered: false
     };
 
-    this.initialize = this.initialize.bind(this);
-    this.closeApp = this.closeApp.bind(this);
+    // this.initialize = this.initialize.bind(this);
+    // this.closeApp = this.closeApp.bind(this);
   }
-
-  // initialize() {
-  //   liff.init(async (data) => {
-  //     let profile = await liff.getProfile();
-  //     this.setState({
-  //       displayName: profile.displayName,
-  //       userId: profile.userId,
-  //     });
-  //   });
-  // }
 
   initialize() {
     liff.init(async (data) => {
@@ -52,8 +42,8 @@ class App extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('load', this.initialize);
-    // this.initialize();
+    // window.addEventListener('load', this.initialize);
+
     fetch('/api/check-users', {
       method: 'POST',
       body: JSON.stringify({ userID: this.state.userId }),
@@ -79,7 +69,6 @@ class App extends Component {
 
 
   render() {
-    window.alert(this.state.displayName)
     if (this.state.userRegistered === false) {
       return (
         <RegisterPage
