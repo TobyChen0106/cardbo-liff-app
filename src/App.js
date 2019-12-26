@@ -22,21 +22,26 @@ class App extends Component {
   }
 
   initialize() {
-    liff.init((data) => {
-      var profile;
-      liff.getProfile().catch(function (error) {
-        window.alert("Error getting profile: " + error);
-      }).then(
-        res => { profile = res }
-      ).then(() => {
-        this.setState({
-          displayName: profile.displayName,
-          userId: profile.userId,
-        });
-      })
+    liff.init(async (data) => {
+      let profile = await liff.getProfile();
+      this.setState({
+        displayName: profile.displayName,
+        userId: profile.userId,
+      });
     });
   }
 
+  // initialize() {
+  //   liff.init(async (data) => {
+  //     let profile = await liff.getProfile();
+  //     this.setState({
+  //       displayName: profile.displayName,
+  //       userId: profile.userId,
+  //       pictureUrl: profile.pictureUrl,
+  //       statusMessage: profile.statusMessage
+  //     });
+  //   });
+  // }
   closeApp(event) {
     event.preventDefault();
     liff.sendMessages([{
@@ -48,7 +53,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // window.addEventListener('load', this.initialize);
+    window.addEventListener('load', this.initialize);
     this.initialize();
     fetch('/api/check-users', {
       method: 'POST',
