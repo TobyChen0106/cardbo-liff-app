@@ -22,14 +22,18 @@ class App extends Component {
   }
 
   initialize() {
-    liff.init(async (data) => {
-      let profile = await liff.getProfile().catch(function (error) {
+    liff.init((data) => {
+      var profile;
+      liff.getProfile().catch(function (error) {
         window.alert("Error getting profile: " + error);
+      }).then(
+        res => { profile = res }
+      ).then(() => {
+        this.setState({
+          displayName: profile.displayName,
+          userId: profile.userId,
+        });
       })
-      this.setState({
-        displayName: profile.displayName,
-        userId: profile.userId,
-      });
     });
   }
 
