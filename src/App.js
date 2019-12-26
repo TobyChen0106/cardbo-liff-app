@@ -17,29 +17,37 @@ class App extends Component {
       userRegistered: false
     };
 
-    liff.getProfile().then((profile) => {
-      this.setState({
-        displayName: profile.displayName,
-        userId: profile.userId
-      });
-    }).catch(function (error) {
-      window.alert("Error getting profile: " + error);
-    })
-    // this.initialize = this.initialize.bind(this);
-    // this.closeApp = this.closeApp.bind(this);
+    // liff.getProfile().then((profile) => {
+    //   this.setState({
+    //     displayName: profile.displayName,
+    //     userId: profile.userId
+    //   });
+    // }).catch(function (error) {
+    //   window.alert("Error getting profile: " + error);
+    // })
+    this.initialize = this.initialize.bind(this);
+    this.closeApp = this.closeApp.bind(this);
   }
 
-  // initialize(){
-  //   liff.init(async (data) => {
-  //     let profile = await liff.getProfile();
-  //     this.setState({
-  //       displayName: profile.displayName,
-  //       userId: profile.userId,
-  //       pictureUrl: profile.pictureUrl,
-  //       statusMessage: profile.statusMessage
-  //     });
-  //   });
-  // }
+  initialize() {
+    liff.init(async (data) => {
+      let profile = await liff.getProfile()
+      this.setState({
+        displayName: profile.displayName,
+        userId: profile.userId,
+      });
+    });
+  }
+
+  closeApp(event) {
+    event.preventDefault();
+    liff.sendMessages([{
+      type: 'text',
+      text: "我填完了!"
+    }]).then(() => {
+      liff.closeWindow();
+    });
+  }
 
   componentDidMount() {
     window.addEventListener('load', this.initialize);
@@ -65,15 +73,7 @@ class App extends Component {
   }
 
 
-  // closeApp(event) {
-  //   event.preventDefault();
-  //   liff.sendMessages([{
-  //     type: 'text',
-  //     text: "Bye Bye!!!"
-  //   }]).then(() => {
-  //     liff.closeWindow();
-  //   });
-  // }
+
 
 
   render() {
@@ -81,13 +81,14 @@ class App extends Component {
       return (
         <RegisterPage
           displayName={this.state.displayName}
-          userId={this.state.userId}/>
+          userId={this.state.userId}
+          closeApp={this.closeApp} />
       );
     } else {
       return (
         <ModifyPage
           displayName={this.state.displayName}
-          userId={this.state.userId}/>
+          userId={this.state.userId} />
       )
     }
   }
