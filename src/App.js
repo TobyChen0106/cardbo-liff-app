@@ -20,47 +20,48 @@ class App extends Component {
     // this.closeApp = this.closeApp.bind(this);
   }
 
-  initialize() {
-    liff.init(async (data) => {
-      let profile = await liff.getProfile();
-      this.setState({
-        displayName: profile.displayName,
-        userId: profile.userId
-      });
-    });
-  }
+  // initialize() {
+  //   liff.init(async (data) => {
+  //     let profile = await liff.getProfile();
+  //     this.setState({
+  //       displayName: profile.displayName,
+  //       userId: profile.userId
+  //     });
+  //   });
+  // }
 
-  closeApp(event) {
-    event.preventDefault();
-    liff.sendMessages([{
-      type: 'text',
-      text: "我填完了!"
-    }]).then(() => {
-      liff.closeWindow();
-    });
-  }
+  // closeApp(event) {
+  //   event.preventDefault();
+  //   liff.sendMessages([{
+  //     type: 'text',
+  //     text: "我填完了!"
+  //   }]).then(() => {
+  //     liff.closeWindow();
+  //   });
+  // }
 
   componentDidMount() {
     // window.addEventListener('load', this.initialize);
-    this.initialize();
-    fetch('/api/check-users', {
-      method: 'POST',
-      body: JSON.stringify({ userID: this.state.userId }),
-      headers: new Headers({
-        'Content-Type': 'application/json'
-      })
-    }).then(
-      res => res.json()
-    ).then(data => {
-      console.log(data);
-      if (data.IDregistered === true) {
-        console.log("[ERROR] ID registered!")
-        this.setState({ userRegistered: true })
-      } else {
-        // console.log("ID not registered yet")
-        this.setState({ userRegistered: false })
-      }
-    });
+    // this.initialize();
+
+    // fetch('/api/check-users', {
+    //   method: 'POST',
+    //   body: JSON.stringify({ userID: this.state.userId }),
+    //   headers: new Headers({
+    //     'Content-Type': 'application/json'
+    //   })
+    // }).then(
+    //   res => res.json()
+    // ).then(data => {
+    //   console.log(data);
+    //   if (data.IDregistered === true) {
+    //     console.log("[ERROR] ID registered!")
+    //     this.setState({ userRegistered: true })
+    //   } else {
+    //     // console.log("ID not registered yet")
+    //     this.setState({ userRegistered: false })
+    //   }
+    // });
   }
 
 
@@ -72,15 +73,13 @@ class App extends Component {
       return (
         <RegisterPage
           displayName={this.state.displayName}
-          userId={this.state.userId}
-          closeApp={this.closeApp} />
+          userId={this.state.userId} />
       );
     } else {
       return (
         <ModifyPage
           displayName={this.state.displayName}
-          userId={this.state.userId} 
-          closeApp={this.closeApp}/>
+          userId={this.state.userId} />
       )
     }
   }
