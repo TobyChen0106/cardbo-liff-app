@@ -11,7 +11,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      displayName: '',
+      displayName: '!',
       userId: '',
 
       userRegistered: false
@@ -30,7 +30,6 @@ class App extends Component {
         displayName: profile.displayName,
         userId: profile.userId,
       });
-      window.alert("userId" + profile.userId);
     });
   }
 
@@ -72,6 +71,7 @@ class App extends Component {
 
 
   render() {
+    window.alert(this.state.displayName)
     if (this.state.userRegistered === false) {
       return (
         <RegisterPage

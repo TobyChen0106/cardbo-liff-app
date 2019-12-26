@@ -73,7 +73,7 @@ class App extends Component {
                 }])
             }).catch(function (error) {
                 window.alert("Error sending message: " + error);
-            }).then(() => this.props.closeApp())
+            }).then(() => this.props.closeApp());
         }
     }
     handleNickNameChange = (event) => {
