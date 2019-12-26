@@ -126,6 +126,8 @@
 .manage-card{
     margin-top: 0.7rem;
     margin-bottom: 0.5rem;
+    margin-left: 5%;
+    margin-right: 5%;
     border-style: solid;
     border-width: 0.1rem;
     border-radius: 0.5rem;

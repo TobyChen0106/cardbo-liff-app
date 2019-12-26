@@ -18,8 +18,8 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: props.displayName,
-            userId: props.userId,
+            displayName: this.props.displayName,
+            userId: this.props.userId,
 
             nickName: "",
             age: 20,
@@ -60,7 +60,7 @@ class App extends Component {
             ).then((data) => {
                 console.log(data);
             })
-            .then(() => this.props.closeApp)
+            .then( () => this.props.closeApp)
         }
     }
     handleNickNameChange = (event) => {
