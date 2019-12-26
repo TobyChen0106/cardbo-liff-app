@@ -11,14 +11,14 @@ class App extends Component {
     super(props);
 
     this.state = {
-      displayName: '!',
+      displayName: '',
       userId: '',
 
       userRegistered: false
     };
 
-    // this.initialize = this.initialize.bind(this);
-    // this.closeApp = this.closeApp.bind(this);
+    this.initialize = this.initialize.bind(this);
+    this.closeApp = this.closeApp.bind(this);
   }
 
   initialize() {
@@ -42,7 +42,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    // window.addEventListener('load', this.initialize);
+    window.addEventListener('load', this.initialize);
 
     fetch('/api/check-users', {
       method: 'POST',

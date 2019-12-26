@@ -18,18 +18,24 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            displayName: props.displayName,
-            userId: props.userId,
-            pictureUrl: props.pictureUrl,
-            statusMessage: props.statusMessage,
+            displayName: '??',
+            userId: '4567787',
 
             nickName: "",
-            age: 0,
-            gender: "other",
+            age: 20,
+            gender: "Other",
             cards: [],
 
             agreeCheck: false,
+
         };
+        liff.init(async (data) => {
+            let profile = await liff.getProfile();
+            this.setState({
+                displayName: profile.displayName,
+                userId: profile.userId
+            });
+        });
     }
 
 
@@ -60,15 +66,10 @@ class App extends Component {
                 res => res.json()
             ).then((data) => {
                 console.log(data);
-            })
-            .then(() => {
+            }).then(() => {
                 liff.sendMessages([{
                     type: 'text',
                     text: "我填完囉!"
-                }, {
-                    type: 'sticker',
-                    packageId: '2',
-                    stickerId: '144'
                 }])
             }).catch(function (error) {
                 window.alert("Error sending message: " + error);
@@ -80,50 +81,90 @@ class App extends Component {
     handleNickNameChange = (event) => {
         this.setState({ nickName: event.target.value });
     }
-    changeAge = (event) => {
+    handleChangeAge = (event) => {
         this.setState({ age: event });
     }
 
     handleChangeCheck = (event) => {
         this.setState({ agreeCheck: !this.state.agreeCheck });
     }
+    handleChangeGender = (event) => {
+        if (event === 0) {
+            this.setState({ gender: "Male" });
+        } else if (event === 1) {
+            this.setState({ gender: "Other" });
+        } else if (event === 2) {
+            this.setState({ gender: "Female" });
+        }
+    }
+    handleGenderChange = (e) => {
+        this.setState({ gender: e.target.value })
+    }
     render() {
         return (
-            <div className="register">
-                <div id="cardbo-register-data" class="row">
-                    <h2>會員資料設定</h2>
-                    <div class="info" id='info'>"我是說明"</div>
+            <div className="register chineese-font">
+                <div id="cardbo-register-data" className="row">
+                    <div className="register-title-wrapper">會員資料修改</div>
+                    <div className="register-title-info" >{this.state.displayName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
                 </div>
 
-                <form action="#" onSubmit={() => this.formOnSubmit()} id="register-form">
-                    <div class="row">
-                        <div>暱稱</div>
-                        <input id="nick-name" type="text" value={this.state.nickName} onChange={this.handleNickNameChange} />
+                <div className="register-form-contaniner">
+                    <div className="row nick-name">
+                        <div className="nick-name-title-container">
+                            <label>您希望我們如何稱呼您?</label>
+                        </div>
+                        <div className="nick-name-input-container">
+                            <input className="nick-name-input" type="text"
+                                value={this.state.nickName} onChange={this.handleNickNameChange} />
+                        </div>
                     </div>
-                    <div class="row">
-                        <div>年齡</div>
-                        {this.state.age}
-                        <div className="slider-contain"> <Slider min={0} max={100} defaultValue={0} onChange={this.changeAge} /></div>
+                    <div className="row register-age">
+                        <div className="age-container">
+                            <div className="age">您的年齡:</div>
+                            <div className="age-number">{this.state.age}</div>
+                        </div>
+                        <div className="age-slider-contain"> <Slider min={20} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
                     </div>
-                    <div class="row">
+                    <div className="row register-gender">
                         <div>性別</div>
+                        <div className="option-container">
+                            <div className="radio">
+                                <label>
+                                    <input type="radio" value="Male" checked={this.state.gender === 'Male'} onChange={this.handleGenderChange} />
+                                    Male
+                            </label>
+                            </div>
+                            <div className="radio">
+                                <label>
+                                    <input type="radio" value="Other" checked={this.state.gender === 'Other'} onChange={this.handleGenderChange} />
+                                    Other
+                            </label>
+                            </div>
+                            <div className="radio">
+                                <label>
+                                    <input type="radio" value="Female" checked={this.state.gender === 'Female'} onChange={this.handleGenderChange} />
+                                    Female
+                            </label>
+                            </div>
+                        </div>
+                        {/* {this.state.gender}
+                        <div className="gender-slider-contain"> <Slider min={0} max={2} defaultValue={1} onChange={this.handleChangeGender} /></div> */}
                     </div>
-                    <div class="row">
-                        <div class="my-card-title">我的信用卡</div>
-                        <div class="card-lists">
+                    <div className="row manage-card">
+                        <div className="my-card-title">"todo 選擇信用卡"</div>
+                        <div className="card-lists">
 
                         </div>
-                        <input type="text" name="text" value="" id="" />
                     </div>
-                    <div class="row">
+                    <div className="row">
                         <input id="agree" type="checkbox" name="checkbox" value="check" defaultChecked={this.state.agreeCheck} onChange={this.handleChangeCheck} />
                         我已閱讀並同意<a href="#">使用者服務條款</a>
                     </div>
-                    <div class="row">
-                        <input type="submit" name="submit" value="submit" id="submit-button" />
+                    <div className="row">
+                        <button onClick={this.formOnSubmit}>Submit</button>
                     </div>
-                </form>
-                <button onClick={this.formOnSubmit}> test</button>
+                </div>
+
             </div>
         );
     }
