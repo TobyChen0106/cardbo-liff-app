@@ -79,7 +79,7 @@ class App extends Component {
 
 
   render() {
-    window.alert(this.state.displayName)
+    // window.alert(this.state.displayName)
     if (this.state.userRegistered === false) {
       return (
         <RegisterPage

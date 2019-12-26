@@ -20,8 +20,6 @@ class App extends Component {
         this.state = {
             displayName: props.displayName,
             userId: props.userId,
-            pictureUrl: props.pictureUrl,
-            statusMessage: props.statusMessage,
 
             nickName: "",
             age: 20,
@@ -62,18 +60,7 @@ class App extends Component {
             ).then((data) => {
                 console.log(data);
             })
-            .then(() => {
-                liff.sendMessages([{
-                    type: 'text',
-                    text: "我填完囉!"
-                }, {
-                    type: 'sticker',
-                    packageId: '2',
-                    stickerId: '144'
-                }])
-            }).catch(function (error) {
-                window.alert("Error sending message: " + error);
-            }).then(() => this.props.closeApp());
+            .then(() => this.props.closeApp)
         }
     }
     handleNickNameChange = (event) => {
