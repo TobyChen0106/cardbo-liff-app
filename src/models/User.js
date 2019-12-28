@@ -24,7 +24,7 @@ const UserSchema = new Schema({
         required: true
     },
     cards:{
-        type: [Number],
+        type: [Card],
         default: undefined,
     }
 });
