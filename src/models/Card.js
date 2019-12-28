@@ -35,7 +35,7 @@ const CardSchema = new Schema({
         type: String,
         required: true
     },
-    cardBank: {
+    bankName: {
         type: String,
         required: true
     },
@@ -52,7 +52,7 @@ const CardSchema = new Schema({
         required: true
     },
     offer: {
-        type: Schema.Types.Mixed,
+        type: Mixed,
         get: getMongoMixedWithBadKeys,
         set: setMongoMixedWithBadKeys,
         required: true
@@ -63,5 +63,5 @@ const CardSchema = new Schema({
     }
 });
 
-const Card = mongoose.model('Card', CardSchema, 'cards');
+const Card = mongoose.model('Card', CardSchema);
 module.exports = Card;

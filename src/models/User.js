@@ -88,6 +88,10 @@ const UserSchema = new Schema({
     cards:{
         type: [CardSchema],
         default: undefined,
+    },
+    stores:{
+        type: [String],
+        default: undefined,
     }
 });
 

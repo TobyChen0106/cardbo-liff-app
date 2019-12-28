@@ -212,7 +212,7 @@ class App extends Component {
                         <div className="age-slider-contain"> <Slider min={20} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
                     </div>
                     <div className="row register-gender">
-                        <div>性別</div>
+                        <div>您的性別:</div>
                         <div className="option-container">
                             <button className="gender-card" onClick={() => { this.handleGenderChange('Male') }}
                                 style={{

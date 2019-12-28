@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const StoreSchema = new Schema({
-    name: {
+    storeName: {
         type: String,
         required: true
     },
@@ -19,9 +19,8 @@ const StoreSchema = new Schema({
         default: 0,
         required: true
     },
-    rfid: {
-        type: String,
-        default: 'unset',
+    note: {
+        type: Schema.Types.Mixed,
         required: true
     }
 });
