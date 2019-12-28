@@ -69,7 +69,7 @@ class App extends Component {
         liff.init(async (data) => {
             let profile = await liff.getProfile();
             this.setState({
-                displayName: profile.displayName,
+                displayName: profile.userId,
                 userId: profile.userId
             });
         });
