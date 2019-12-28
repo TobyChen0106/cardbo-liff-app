@@ -107,10 +107,10 @@ class App extends Component {
             ).then((data) => {
                 console.log(data);
             }).then(() => {
-                liff.sendMessages([{
+                liff.sendMessages({
                     type: 'text',
                     text: "我填完囉!"
-                }])
+                })
             }).catch(function (error) {
                 window.alert("Error sending message: " + error);
             }).then(() => {
@@ -174,10 +174,10 @@ class App extends Component {
         const cardLists = this.state.cards.map((i, index) => (
             <div className="card">
                 <div className="selcet-bank-container">
-                    <Select options={bankList} onChange={(e) => this.handleSelectBank(e, index)} value={i.selectedBank} />
+                    <Select options={bankList} onChange={(e) => this.handleSelectBank(e, index)} value={i.selectedBank} isSearchable={false}/>
                 </div>
                 <div className="selcet-card-container">
-                    <Select options={i.options} onChange={(e) => this.handleSelectCard(e, index)} value={i.selectedCard} />
+                    <Select options={i.options} onChange={(e) => this.handleSelectCard(e, index)} value={i.selectedCard} isSearchable={false}/>
                 </div>
                 <button className="cancel-button" onClick={(e) => this.handleCancel(e, index)}>
                     <img src={cancel} className="cancel"></img>
