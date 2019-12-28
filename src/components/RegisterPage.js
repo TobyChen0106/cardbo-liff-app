@@ -54,15 +54,8 @@ class App extends Component {
                 '美國運通'],
             // allCards: {},
             allCards: _allCards,
-
         };
-        liff.init(async (data) => {
-            let profile = await liff.getProfile();
-            this.setState({
-                displayName: profile.displayName,
-                userId: profile.userId
-            });
-        });
+
     }
     componentDidMount() {
         fetch('/api/cards').catch(function (error) {
@@ -73,6 +66,13 @@ class App extends Component {
             this.setState({ allCards: data })
             // console.log(data);
         })
+        liff.init(async (data) => {
+            let profile = await liff.getProfile();
+            this.setState({
+                displayName: profile.displayName,
+                userId: profile.userId
+            });
+        });
     }
     formOnSubmit = () => {
         if (this.state.age === 0) {
@@ -81,8 +81,8 @@ class App extends Component {
         else if (!this.state.agreeCheck) {
             alert('請閱讀並同意使用者服務條款!');
         } else {
-            var userCards = this.state.cards.filter(card=>card.card !== '' && card.bank !== '' ).map((i, index) => (
-                this.state.allCards.filter( card => card.cardName === i.card && card.cardBank === i.bank)[0]
+            var userCards = this.state.cards.filter(card => card.card !== '' && card.bank !== '').map((i, index) => (
+                this.state.allCards.filter(card => card.cardName === i.card && card.cardBank === i.bank)[0]
             ));
             // console.log(userCards)
 
