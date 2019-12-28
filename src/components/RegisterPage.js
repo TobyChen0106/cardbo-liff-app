@@ -69,7 +69,7 @@ class App extends Component {
         liff.init(async (data) => {
             let profile = await liff.getProfile();
             this.setState({
-                displayName: profile.userId,
+                displayName: profile.displayName,
                 userId: profile.userId
             });
         });
@@ -92,7 +92,8 @@ class App extends Component {
                 nickName: this.state.nickName,
                 age: this.state.age,
                 gender: this.state.gender,
-                cards: userCards
+                // cards: userCards
+                cards: []
             };
             fetch('/api/users', {
                 method: 'POST',
@@ -105,12 +106,12 @@ class App extends Component {
             }).then(
                 res => res.json()
             ).then((data) => {
-                alert(data);
+                console.log(data);
             }).then(() => {
-                liff.sendMessages([{
-                    'type': 'text',
-                    'text': "Done!"
-                }])
+                // liff.sendMessages([{
+                //     'type': 'text',
+                //     'text': "Done!"
+                // }])
             }).catch(function (error) {
                 window.alert("Error sending message: " + error);
             }).then(() => {
