@@ -105,7 +105,7 @@ class App extends Component {
             }).then(
                 res => res.json()
             ).then((data) => {
-                console.log(data);
+                alert(data);
             }).then(() => {
                 liff.sendMessages([{
                     'type': 'text',
