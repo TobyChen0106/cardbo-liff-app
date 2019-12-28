@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require('../models/User');
+const Card = require('../models/Card');
 
 router.post('/users', (req, res) => {
     const userdata = req.body;
@@ -46,6 +47,19 @@ router.post('/check-users', (req, res) => {
             }
         })
     }
+});
+
+router.get('/cards', (req, res) => {
+    Card.find({  }, (err, data) => {
+        if (err) {
+            console.log(err);
+        }
+        else if (!data) {
+            console.log("[ERROR] EMPTY DATA!");
+        } else {
+            res.json(data);
+        }
+    })
 });
 
 module.exports = router;

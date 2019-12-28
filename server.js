@@ -4,7 +4,6 @@ const path = require('path');
 const port = process.env.PORT || 80;
 const app = express();
 var bodyParser = require('body-parser')
-
 const apiRoute = require('./src/route/api');
 
 // mongodb
