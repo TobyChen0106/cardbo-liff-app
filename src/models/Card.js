@@ -52,7 +52,7 @@ const CardSchema = new Schema({
         required: true
     },
     offer: {
-        type: Mixed,
+        type: Schema.Types.Mixed,
         get: getMongoMixedWithBadKeys,
         set: setMongoMixedWithBadKeys,
         required: true
