@@ -108,10 +108,10 @@ class App extends Component {
             ).then((data) => {
                 console.log(data);
             }).then(() => {
-                // liff.sendMessages([{
-                //     'type': 'text',
-                //     'text': "Done!"
-                // }])
+                liff.sendMessages([{
+                    'type': 'text',
+                    'text': "Done!"
+                }])
             }).catch(function (error) {
                 window.alert("Error sending message: " + error);
             }).then(() => {
