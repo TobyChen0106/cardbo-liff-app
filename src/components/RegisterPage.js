@@ -209,7 +209,7 @@ class App extends Component {
                             <div className="age">您的年齡:</div>
                             <div className="age-number">{this.state.age}</div>
                         </div>
-                        <div className="age-slider-contain"> <Slider min={20} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
+                        <div className="age-slider-contain"> <Slider min={0} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
                     </div>
                     <div className="row register-gender">
                         <div>您的性別:</div>
