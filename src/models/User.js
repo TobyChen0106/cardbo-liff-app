@@ -29,7 +29,7 @@ const Note = new Schema({
 
 const CardSchema = new Schema({
     cardID: {
-        type: Number,
+        type: String,
         required: true
     },
     cardName: {
@@ -42,36 +42,36 @@ const CardSchema = new Schema({
     },
     imageUrl: {
         type: String,
-        required: true
+        // required: true
     },
     imageRotate: {
         type: Boolean,
-        required: true
+        // required: true
     },
     imageLocal: {
         type: String,
-        required: true
+        // required: true
     },
     offer: {
         type: Schema.Types.Mixed,
         get: getMongoMixedWithBadKeys,
         set: setMongoMixedWithBadKeys,
-        required: true
+        // required: true
     },
     note: {
         type: Note,
-        required: true
+        // required: true
     }
 });
 
 const UserSchema = new Schema({
     lineID: {
         type: String,
-        // required: true
+        required: true
     },
     displayName: {
         type: String,
-        // required: true
+        required: true
     },
     nickName: {
         type: String,

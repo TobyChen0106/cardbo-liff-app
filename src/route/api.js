@@ -19,7 +19,18 @@ router.post('/users', (req, res) => {
                     res.json("New user created!");
                 })
             } else {
-                res.json("This lineID have been registered!");
+                console.log(userResponse)
+                userResponse.lineID = userdata.lineID;
+                userResponse.displayName = userdata.displayName;
+                userResponse.nickName = userdata.nickName;
+                userResponse.age = userdata.age;
+                userResponse.gender = userdata.gender;
+                userResponse.cards = userdata.cards;
+                userResponse.stores = userdata.stores;
+                
+                userResponse.save().then((user) => {
+                    res.json("User Data modified!");
+                })
             }
         })
     }
@@ -40,17 +51,21 @@ router.post('/check-users', (req, res) => {
                 console.log(err);
                 res.json("Server User find ID Error." + String(err));
             }
-            else if (!userResponse) {
-                res.json({ IDregistered: false });
-            } else {
-                res.json({ IDregistered: true });
+            // else if (!userResponse) {
+            //     res.json({ IDregistered: false });
+            // } else {
+            //     res.json({ IDregistered: true });
+            // }
+            else{
+                res.json(userResponse);
+                console.log(userResponse)
             }
         })
     }
 });
 
 router.get('/cards', (req, res) => {
-    Card.find({  }, (err, data) => {
+    Card.find({}, (err, data) => {
         if (err) {
             console.log(err);
         }

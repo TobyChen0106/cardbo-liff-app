@@ -16,8 +16,6 @@ class App extends Component {
 
       userRegistered: false
     };
-    // this.initialize = this.initialize.bind(this);
-    // this.closeApp = this.closeApp.bind(this);
   }
 
   // initialize() {
