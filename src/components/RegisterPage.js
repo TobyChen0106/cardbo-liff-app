@@ -57,16 +57,14 @@ class App extends Component {
             let profile = await liff.getProfile();
             if (!profile.userId) {
                 window.alert("USER ID ERROR!");
-            }
+            } 
             this.setState({
                 displayName: profile.displayName,
                 userId: profile.userId
             });
-            return profile;
-        }).then((profile) =>
             fetch('/api/check-users', {
                 method: 'POST',
-                body: JSON.stringify({ userID: profile.userId }),
+                body: JSON.stringify({userID:profile.userId}),
                 headers: new Headers({
                     'Content-Type': 'application/json'
                 })
@@ -78,64 +76,65 @@ class App extends Component {
                 if (data) {
                     this.setState({ IDregistered: true });
                     this.setState({ agreeCheck: true });
-                    if (data.nickName !== '') {
+                    if(data.nickName !== ''){
                         this.setState({ displayName: data.nickName });
-                    } else {
+                    }else{
                         this.setState({ displayName: data.displayName });
                     }
                     this.setState({ userId: data.userId });
                     this.setState({ nickName: data.nickName });
                     this.setState({ age: data.age });
                     this.setState({ gender: data.gender });
-
+                    
                     // this.setState({ userCards: data.userCards });
                 } else {
                     this.setState({ IDregistered: false });
                 }
+
             })
-        );
+        });
 
         // this.setState({
         //     displayName: 'testName',
         //     userId: 'U06e9b44fd85556b311cf46313234d605'
         // });
     }
-    componentDidMount() {
-        // if (!this.state.userId) {
-        //     window.alert("USER ID ERROR!");
-        // } else {
-        //     fetch('/api/check-users', {
-        //         method: 'POST',
-        //         body: JSON.stringify({userID:this.state.userId}),
-        //         headers: new Headers({
-        //             'Content-Type': 'application/json'
-        //         })
-        //     }).catch(function (error) {
-        //         window.alert("[Error] " + error);
-        //     }).then(
-        //         res => res.json()
-        //     ).then((data) => {
-        //         if (data) {
-        //             this.setState({ IDregistered: true });
-        //             this.setState({ agreeCheck: true });
-        //             if(data.nickName !== ''){
-        //                 this.setState({ displayName: data.nickName });
-        //             }else{
-        //                 this.setState({ displayName: data.displayName });
-        //             }
-        //             this.setState({ userId: data.userId });
-        //             this.setState({ nickName: data.nickName });
-        //             this.setState({ age: data.age });
-        //             this.setState({ gender: data.gender });
+    // componentDidMount() {
+    //     if (!this.state.userId) {
+    //         window.alert("USER ID ERROR!");
+    //     } else {
+    //         fetch('/api/check-users', {
+    //             method: 'POST',
+    //             body: JSON.stringify({userID:this.state.userId}),
+    //             headers: new Headers({
+    //                 'Content-Type': 'application/json'
+    //             })
+    //         }).catch(function (error) {
+    //             window.alert("[Error] " + error);
+    //         }).then(
+    //             res => res.json()
+    //         ).then((data) => {
+    //             if (data) {
+    //                 this.setState({ IDregistered: true });
+    //                 this.setState({ agreeCheck: true });
+    //                 if(data.nickName !== ''){
+    //                     this.setState({ displayName: data.nickName });
+    //                 }else{
+    //                     this.setState({ displayName: data.displayName });
+    //                 }
+    //                 this.setState({ userId: data.userId });
+    //                 this.setState({ nickName: data.nickName });
+    //                 this.setState({ age: data.age });
+    //                 this.setState({ gender: data.gender });
+                    
+    //                 // this.setState({ userCards: data.userCards });
+    //             } else {
+    //                 this.setState({ IDregistered: false });
+    //             }
 
-        //             // this.setState({ userCards: data.userCards });
-        //         } else {
-        //             this.setState({ IDregistered: false });
-        //         }
-
-        //     })
-        // }
-    }
+    //         })
+    //     }
+    // }
     formOnSubmit = () => {
         if (this.state.age === 0) {
             alert('請輸入年齡!');
