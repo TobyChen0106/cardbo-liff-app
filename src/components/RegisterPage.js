@@ -58,7 +58,7 @@ class App extends Component {
             if (!profile.userId) {
                 window.alert("USER ID ERROR!");
             } 
-            this.setState({
+            await this.setState({
                 displayName: profile.displayName,
                 userId: profile.userId
             });
