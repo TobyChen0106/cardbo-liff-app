@@ -164,18 +164,20 @@ class App extends Component {
                 })
             }).catch(function (error) {
                 window.alert("[Error] " + error);
-            }).then(
-                res => res.json()
-            ).then((data) => {
-                console.log(data);
-            }).then(() => {
-                // liff.sendMessages([{
-                //     'type': 'text',
-                //     'text': "Done!"
-                // }])
-            }).catch(function (error) {
-                window.alert("Error sending message: " + error);
-            }).then(() => {
+            })
+            // .then(
+            //     res => res.json()
+            // ).then((data) => {
+            //     console.log(data);
+            // }).then(() => {
+            //     // liff.sendMessages([{
+            //     //     'type': 'text',
+            //     //     'text': "Done!"
+            //     // }])
+            // }).catch(function (error) {
+            //     window.alert("Error sending message: " + error);
+            // })
+            .then(() => {
                 liff.closeWindow();
             })
         }
