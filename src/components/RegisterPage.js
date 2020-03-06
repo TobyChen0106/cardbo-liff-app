@@ -58,7 +58,7 @@ class App extends Component {
             if (!profile.userId) {
                 window.alert("USER ID ERROR!");
             } 
-            await this.setState({
+            this.setState({
                 displayName: profile.displayName,
                 userId: profile.userId
             });
@@ -71,7 +71,7 @@ class App extends Component {
     }
     componentDidMount() {
         if (!this.state.userId) {
-            // window.alert("USER ID ERROR!");
+            window.alert("USER ID ERROR!");
         } else {
             fetch('/api/check-users', {
                 method: 'POST',
