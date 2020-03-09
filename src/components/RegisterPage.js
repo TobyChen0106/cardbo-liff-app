@@ -39,7 +39,8 @@ class App extends Component {
                 '王道銀行', '台灣樂天', '凱基銀行', '玉山銀行', '臺灣銀行', '台中商銀', '土地銀行', '安泰銀行', '三信銀行', '高雄銀行', '華泰銀行',
                 '美國運通'],
             allCards: {},
-            IDregistered: false
+            IDregistered: false,
+            saveOrSubmit: "Submit",
             // allCards: _allCards,
         };
 
@@ -85,7 +86,7 @@ class App extends Component {
                     this.setState({ nickName: data.nickName });
                     this.setState({ age: data.age });
                     this.setState({ gender: data.gender });
-                    
+                    this.setState({saveOrSubmit:"Save"});
                     // this.setState({ userCards: data.userCards });
                 } else {
                     this.setState({ IDregistered: false });
@@ -143,7 +144,7 @@ class App extends Component {
             alert('請閱讀並同意使用者服務條款!');
         } else {
             var userCards = this.state.cards.filter(card => card.card !== '' && card.bank !== '').map((i, index) => (
-                this.state.allCards.filter(card => card.cardName === i.card && card.cardBank === i.bank)[0]
+                this.state.allCards.filter(card => card.cardName === i.card && card.bankName === i.bank)[0].cardID
             ));
             // console.log(userCards)
 
@@ -202,7 +203,7 @@ class App extends Component {
         const label = e.label;
         var new_cards = this.state.cards;
 
-        new_cards[id].options = this.state.allCards.filter(card => card.cardBank === label).map((i, index) => (
+        new_cards[id].options = this.state.allCards.filter(card => card.bankName === label).map((i, index) => (
             { label: i.cardName, value: index }
         ));
         new_cards[id].bank = label;
@@ -319,7 +320,7 @@ class App extends Component {
                         </div>
 
                         <div className="row">
-                            <button className="submit-button" onClick={this.formOnSubmit}>Submit</button>
+                            <button className="submit-button" onClick={this.formOnSubmit}>Save</button>
                         </div>
                     </div>
                 </div>
