@@ -77,11 +77,12 @@ class App extends Component {
                 if (data) {
                     this.setState({ IDregistered: true });
                     this.setState({ agreeCheck: true });
-                    if(data.nickName !== ''){
-                        this.setState({ displayName: data.nickName });
-                    }else{
-                        this.setState({ displayName: data.displayName });
-                    }
+                    // if(data.nickName !== ''){
+                    //     this.setState({ displayName: data.nickName });
+                    // }else{
+                    //     this.setState({ displayName: data.displayName });
+                    // }
+                    // this.setState({ displayName: data.displayName });
                     this.setState({ userId: data.lineID });
                     this.setState({ nickName: data.nickName });
                     this.setState({ age: data.age });
@@ -258,7 +259,7 @@ class App extends Component {
                 <div className="register chineese-font">
                     <div id="cardbo-register-data" className="row">
                         <div className="register-title-wrapper">卡伯會員中心</div>
-                        <div className="register-title-info" >{this.state.displayName}，您可以在這裡修改您的基本資料:</div>
+                        <div className="register-title-info" >{this.state.nickName === ''? this.state.displayName : this.state.nickName}，您可以在這裡修改您的基本資料:</div>
                     </div>
 
                     <div className="register-form-contaniner">
@@ -330,7 +331,7 @@ class App extends Component {
                 <div className="register chineese-font">
                     <div id="cardbo-register-data" className="row">
                         <div className="register-title-wrapper">卡伯會員註冊</div>
-                        <div className="register-title-info" >{this.state.displayName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
+                        <div className="register-title-info" >{this.state.nickName === ''? this.state.displayName : this.state.nickName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
                     </div>
 
                     <div className="register-form-contaniner">
