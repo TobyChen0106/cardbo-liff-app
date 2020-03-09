@@ -82,7 +82,7 @@ class App extends Component {
                     }else{
                         this.setState({ displayName: data.displayName });
                     }
-                    this.setState({ userId: data.userId });
+                    this.setState({ userId: data.lineID });
                     this.setState({ nickName: data.nickName });
                     this.setState({ age: data.age });
                     this.setState({ gender: data.gender });
