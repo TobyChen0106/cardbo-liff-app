@@ -46,97 +46,86 @@ class App extends Component {
 
     }
     componentWillMount() {
+        var allCardList;
         fetch('/api/cards').catch(function (error) {
             window.alert("[Error] " + error);
         }).then(
             res => res.json()
         ).then((data) => {
             this.setState({ allCards: data })
+            allCardList = data;
             // console.log(data);
-        });
-        liff.init(async (data) => {
-            let profile = await liff.getProfile();
-            if (!profile.userId) {
-                window.alert("USER ID ERROR!");
-            } 
-            this.setState({
-                displayName: profile.displayName,
-                userId: profile.userId
-            });
-            fetch('/api/check-users', {
-                method: 'POST',
-                body: JSON.stringify({userID:profile.userId}),
-                headers: new Headers({
-                    'Content-Type': 'application/json'
-                })
-            }).catch(function (error) {
-                window.alert("[Error] " + error);
-            }).then(
-                res => res.json()
-            ).then((data) => {
-                if (data) {
-                    this.setState({ IDregistered: true });
-                    this.setState({ agreeCheck: true });
-                    // if(data.nickName !== ''){
-                    //     this.setState({ displayName: data.nickName });
-                    // }else{
-                    //     this.setState({ displayName: data.displayName });
-                    // }
-                    // this.setState({ displayName: data.displayName });
-                    this.setState({ userId: data.lineID });
-                    this.setState({ nickName: data.nickName });
-                    this.setState({ age: data.age });
-                    this.setState({ gender: data.gender });
-                    this.setState({saveOrSubmit:"Save"});
-                    // this.setState({ userCards: data.userCards });
-                } else {
-                    this.setState({ IDregistered: false });
+        }).then(() => {
+            var profile;
+            // profile = {
+            //     displayName: "test",
+            //     userId: "U879a5cb6920a17888301f36935418744",
+            // }
+            liff.init((data) => {
+                profile = liff.getProfile();
+            }).then(() => {
+                if (!profile.userId) {
+                    window.alert("USER ID ERROR!");
                 }
+                this.setState({
+                    displayName: profile.displayName,
+                    userId: profile.userId
+                });
+                fetch('/api/check-users', {
+                    method: 'POST',
+                    body: JSON.stringify({ userID: profile.userId }),
+                    headers: new Headers({
+                        'Content-Type': 'application/json'
+                    })
+                }).catch(function (error) {
+                    window.alert("[Error] " + error);
+                }).then(
+                    res => res.json()
+                ).then((data) => {
+                    if (data) {
+                        this.setState({ IDregistered: true });
+                        this.setState({ agreeCheck: true });
 
+                        this.setState({ userId: data.lineID });
+                        this.setState({ nickName: data.nickName });
+                        this.setState({ age: data.age });
+                        this.setState({ gender: data.gender });
+                        this.setState({ saveOrSubmit: "Save" });
+                        const bankList = this.state.bankList.map((i, index) => (
+                            { label: i, value: index }
+                        ));
+                        var cards = [];
+                        if (data.cards.length > 0) {
+                            for (var i = 0; i < data.cards.length; ++i) {
+                                var cardIndex = allCardList.map((i, index) => (i.cardID)).indexOf(data.cards[i]);
+                                var _card = allCardList[cardIndex];
+                                var _options = allCardList.filter(card => card.bankName === _card.bankName).map((_i, _index) => (
+                                    { label: _i.cardName, value: _index }
+                                ));
+                                var userCard = {
+                                    bank: _card.bankName,
+                                    card: _card.cardName,
+                                    cardID: _card.cardID,
+                                    selectedBank: { label: _card.bankName, value: bankList.indexOf(_card.bankName) },
+                                    selectedCard: _options.filter(op => op.label === _card.cardName)[0],
+                                    options: _options
+                                }
+                                // console.log(userCard);
+                                cards.push(userCard);
+                            }
+                        } else {
+                            cards.push({ bank: '', card: '', options: [] });
+                        }
+
+                        this.setState({ cards: cards });
+                    } else {
+                        this.setState({ IDregistered: false });
+                    }
+                });
             })
         });
-
-        // this.setState({
-        //     displayName: 'testName',
-        //     userId: 'U06e9b44fd85556b311cf46313234d605'
-        // });
     }
-    // componentDidMount() {
-    //     if (!this.state.userId) {
-    //         window.alert("USER ID ERROR!");
-    //     } else {
-    //         fetch('/api/check-users', {
-    //             method: 'POST',
-    //             body: JSON.stringify({userID:this.state.userId}),
-    //             headers: new Headers({
-    //                 'Content-Type': 'application/json'
-    //             })
-    //         }).catch(function (error) {
-    //             window.alert("[Error] " + error);
-    //         }).then(
-    //             res => res.json()
-    //         ).then((data) => {
-    //             if (data) {
-    //                 this.setState({ IDregistered: true });
-    //                 this.setState({ agreeCheck: true });
-    //                 if(data.nickName !== ''){
-    //                     this.setState({ displayName: data.nickName });
-    //                 }else{
-    //                     this.setState({ displayName: data.displayName });
-    //                 }
-    //                 this.setState({ userId: data.userId });
-    //                 this.setState({ nickName: data.nickName });
-    //                 this.setState({ age: data.age });
-    //                 this.setState({ gender: data.gender });
-                    
-    //                 // this.setState({ userCards: data.userCards });
-    //             } else {
-    //                 this.setState({ IDregistered: false });
-    //             }
 
-    //         })
-    //     }
-    // }
     formOnSubmit = () => {
         if (this.state.age === 0) {
             alert('請輸入年齡!');
@@ -167,21 +156,21 @@ class App extends Component {
             }).catch(function (error) {
                 window.alert("[Error] " + error);
             })
-            // .then(
-            //     res => res.json()
-            // ).then((data) => {
-            //     console.log(data);
-            // }).then(() => {
-            //     // liff.sendMessages([{
-            //     //     'type': 'text',
-            //     //     'text': "Done!"
-            //     // }])
-            // }).catch(function (error) {
-            //     window.alert("Error sending message: " + error);
-            // })
-            .then(() => {
-                liff.closeWindow();
-            })
+                // .then(
+                //     res => res.json()
+                // ).then((data) => {
+                //     console.log(data);
+                // }).then(() => {
+                //     // liff.sendMessages([{
+                //     //     'type': 'text',
+                //     //     'text': "Done!"
+                //     // }])
+                // }).catch(function (error) {
+                //     window.alert("Error sending message: " + error);
+                // })
+                .then(() => {
+                    liff.closeWindow();
+                })
         }
     }
 
@@ -236,10 +225,9 @@ class App extends Component {
         }))
     }
     render() {
-        const _options = [{ label: "Albania", value: 355 }];
         const bankList = this.state.bankList.map((i, index) => (
             { label: i, value: index }
-        ))
+        ));
 
         const cardLists = this.state.cards.map((i, index) => (
             <div className="card">
@@ -259,7 +247,7 @@ class App extends Component {
                 <div className="register chineese-font">
                     <div id="cardbo-register-data" className="row">
                         <div className="register-title-wrapper">卡伯會員中心</div>
-                        <div className="register-title-info" >{this.state.nickName === ''? this.state.displayName : this.state.nickName}，您可以在這裡修改您的基本資料:</div>
+                        <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，您可以在這裡修改您的基本資料:</div>
                     </div>
 
                     <div className="register-form-contaniner">
@@ -331,7 +319,7 @@ class App extends Component {
                 <div className="register chineese-font">
                     <div id="cardbo-register-data" className="row">
                         <div className="register-title-wrapper">卡伯會員註冊</div>
-                        <div className="register-title-info" >{this.state.nickName === ''? this.state.displayName : this.state.nickName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
+                        <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
                     </div>
 
                     <div className="register-form-contaniner">

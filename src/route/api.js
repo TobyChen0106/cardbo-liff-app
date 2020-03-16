@@ -19,7 +19,7 @@ router.post('/users', (req, res) => {
                     res.json("New user created!");
                 })
             } else {
-                console.log(userResponse)
+                // console.log(userResponse)
                 userResponse.lineID = userdata.lineID;
                 userResponse.displayName = userdata.displayName;
                 userResponse.nickName = userdata.nickName;
@@ -58,7 +58,6 @@ router.post('/check-users', (req, res) => {
             // }
             else{
                 res.json(userResponse);
-                console.log(userResponse)
             }
         })
     }
