@@ -61,8 +61,7 @@ class App extends Component {
             //     userId: "U879a5cb6920a17888301f36935418744",
             // }
             liff.init((data) => {
-                var profile = liff.getProfile();
-                return profile;
+                () => liff.getProfile()
             }).then((profile) => {
                 if (!profile.userId) {
                     window.alert("USER ID ERROR!");
