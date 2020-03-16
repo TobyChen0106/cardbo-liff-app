@@ -56,14 +56,14 @@ class App extends Component {
             allCardList = data;
             // console.log(data);
         }).then(() => {
-            var profile;
             // profile = {
             //     displayName: "test",
             //     userId: "U879a5cb6920a17888301f36935418744",
             // }
             liff.init((data) => {
-                profile = liff.getProfile();
-            }).then(() => {
+                var profile = liff.getProfile();
+                return profile;
+            }).then((profile) => {
                 if (!profile.userId) {
                     window.alert("USER ID ERROR!");
                 }
