@@ -19,7 +19,7 @@ class App extends Component {
         this.state = {
             displayName: '??',
             userId: undefined,
-
+            OS: "",
             nickName: "",
             age: 20,
             gender: "",
@@ -62,6 +62,10 @@ class App extends Component {
                 liff.login({ redirectUri: "https://cardbo-register.herokuapp.com/" });
             }
         }).then(
+            () => liff.getOS()
+        ).then(
+            (OS) => { this.setState({ OS: OS }) }
+        ).then(
             () => liff.getProfile()
         ).then((profile) => {
             if (!profile.userId) {
@@ -126,57 +130,7 @@ class App extends Component {
         });
     }
     componentDidMount() {
-        var allCardList = this.state.allCards;
-        // fetch('/api/check-users', {
-        //     method: 'POST',
-        //     body: JSON.stringify({ userID: this.state.userId }),
-        //     headers: new Headers({
-        //         'Content-Type': 'application/json'
-        //     })
-        // }).catch(function (error) {
-        //     window.alert("[Error] " + error);
-        // }).then(
-        //     res => res.json()
-        // ).then((data) => {
-        //     if (data) {
-        //         this.setState({ IDregistered: true });
-        //         this.setState({ agreeCheck: true });
-
-        //         this.setState({ userId: data.lineID });
-        //         this.setState({ nickName: data.nickName });
-        //         this.setState({ age: data.age });
-        //         this.setState({ gender: data.gender });
-        //         this.setState({ saveOrSubmit: "Save" });
-        //         const bankList = this.state.bankList.map((i, index) => (
-        //             { label: i, value: index }
-        //         ));
-        //         var cards = [];
-        //         if (data.cards.length > 0) {
-        //             for (var i = 0; i < data.cards.length; ++i) {
-        //                 var cardIndex = allCardList.map((i, index) => (i.cardID)).indexOf(data.cards[i]);
-        //                 var _card = allCardList[cardIndex];
-        //                 var _options = allCardList.filter(card => card.bankName === _card.bankName).map((_i, _index) => (
-        //                     { label: _i.cardName, value: _index }
-        //                 ));
-        //                 var userCard = {
-        //                     bank: _card.bankName,
-        //                     card: _card.cardName,
-        //                     cardID: _card.cardID,
-        //                     selectedBank: { label: _card.bankName, value: bankList.indexOf(_card.bankName) },
-        //                     selectedCard: _options.filter(op => op.label === _card.cardName)[0],
-        //                     options: _options
-        //                 }
-        //                 // console.log(userCard);
-        //                 cards.push(userCard);
-        //             }
-        //         } else {
-        //             cards.push({ bank: '', card: '', options: [] });
-        //         }
-        //         this.setState({ cards: cards });
-        //     } else {
-        //         this.setState({ IDregistered: false });
-        //     }
-        // });
+        liff.getOS().then()
     }
     formOnSubmit = () => {
         if (this.state.age === 0) {
@@ -207,22 +161,18 @@ class App extends Component {
                 })
             }).catch(function (error) {
                 window.alert("[Error] " + error);
+            }).then(() => {
+                if (this.state.OS !== 'web') {
+                    liff.sendMessages([{
+                        type: 'text',
+                        text: "Done!"
+                    }]).catch(function (error) {
+                        window.alert("Error sending message: " + error);
+                    })
+                }
+            }).then(() => {
+                liff.closeWindow();
             })
-                // .then(
-                //     res => res.json()
-                // ).then((data) => {
-                //     console.log(data);
-                // }).then(() => {
-                //     // liff.sendMessages([{
-                //     //     'type': 'text',
-                //     //     'text': "Done!"
-                //     // }])
-                // }).catch(function (error) {
-                //     window.alert("Error sending message: " + error);
-                // })
-                .then(() => {
-                    liff.closeWindow();
-                })
         }
     }
 
