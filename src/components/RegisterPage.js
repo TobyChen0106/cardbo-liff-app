@@ -57,8 +57,11 @@ class App extends Component {
             // console.log(data);
         });
         var profile;
-        liff.init({ liffId: '1653324267-e53V2QWz' }, async (data) => {
-            profile = await liff.getProfile();
+        liff.init({ liffId: '1653324267-e53V2QWz' }).then(() => {
+            if (!liff.isLoggedIn()) {
+                liff.login({ redirectUri: "https://localhost:3000" });
+            }
+            profile = liff.getProfile();
             if (!profile.userId) {
                 window.alert("USER ID ERROR!");
             }
@@ -67,7 +70,7 @@ class App extends Component {
                 userId: profile.userId
             });
         });
-        liff.ready.then(()=>{
+        liff.ready.then(() => {
             fetch('/api/check-users', {
                 method: 'POST',
                 body: JSON.stringify({ userID: profile.userId }),
@@ -82,7 +85,7 @@ class App extends Component {
                 if (data) {
                     this.setState({ IDregistered: true });
                     this.setState({ agreeCheck: true });
-    
+
                     this.setState({ userId: data.lineID });
                     this.setState({ nickName: data.nickName });
                     this.setState({ age: data.age });
