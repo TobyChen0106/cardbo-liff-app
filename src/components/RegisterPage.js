@@ -59,7 +59,7 @@ class App extends Component {
         var profile;
         liff.init({ liffId: '1653324267-e53V2QWz' }).then(() => {
             if (!liff.isLoggedIn()) {
-                liff.login({ redirectUri: "https://localhost:3000" });
+                liff.login({ redirectUri: "https://cardbo-register.herokuapp.com/" });
             }
             profile = liff.getProfile();
             if (!profile.userId) {
