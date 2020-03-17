@@ -49,7 +49,7 @@ class App extends Component {
         };
 
     }
-    componentWillMount() {
+    componentDidMount() {
         var allCardList;
         fetch('/api/cards').catch(function (error) {
             window.alert("[Error] " + error);
@@ -58,9 +58,7 @@ class App extends Component {
         ).then((data) => {
             this.setState({ allCards: data })
             allCardList = data;
-            // console.log(data);
         });
-        var profile;
         liff.init({ liffId: '1653324267-e53V2QWz' }).then(() => {
             if (!liff.isLoggedIn()) {
                 liff.login({ redirectUri: "https://cardbo-register.herokuapp.com/" });
@@ -130,9 +128,9 @@ class App extends Component {
                 } else {
                     this.setState({ IDregistered: false });
                 }
+            }).then(()=>{
+                this.setState({ loading: false });
             });
-        }).then(()=>{
-            this.setState({ loading: false });
         });
     }
     formOnSubmit = () => {
