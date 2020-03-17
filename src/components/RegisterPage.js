@@ -10,6 +10,9 @@ import 'rc-slider/assets/index.css';
 //select
 import Select from 'react-select';
 
+//loading
+import ReactLoading from 'react-loading';
+
 // Liff
 const liff = window.liff;
 
@@ -42,6 +45,7 @@ class App extends Component {
             IDregistered: false,
             saveOrSubmit: "Submit",
             // allCards: _allCards,
+            loading:true
         };
 
     }
@@ -130,7 +134,7 @@ class App extends Component {
         });
     }
     componentDidMount() {
-        liff.getOS().then()
+        this.setState({loading:false});
     }
     formOnSubmit = () => {
         if (this.state.age === 0) {
@@ -244,155 +248,162 @@ class App extends Component {
                 </button>
             </div>
         ));
-        if (this.state.IDregistered) {
-            return (
-                <div className="register chineese-font">
-                    <div id="cardbo-register-data" className="row">
-                        <div className="register-title-wrapper">卡伯會員中心</div>
-                        <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，您可以在這裡修改您的基本資料:</div>
-                    </div>
-
-                    <div className="register-form-contaniner">
-                        <div className="row nick-name">
-                            <div className="nick-name-title-container">
-                                <label>您希望我們如何稱呼您?</label>
-                            </div>
-                            <div className="nick-name-input-container">
-                                <input className="nick-name-input" type="text"
-                                    value={this.state.nickName} onChange={this.handleNickNameChange} />
-                            </div>
-                        </div>
-                        <div className="row register-age">
-                            <div className="age-container">
-                                <div className="age">您的年齡:</div>
-                                <div className="age-number">{this.state.age}</div>
-                            </div>
-                            <div className="age-slider-contain"> <Slider min={0} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
-                        </div>
-                        <div className="row register-gender">
-                            <div>您的性別:</div>
-                            <div className="option-container">
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Male') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Male" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Male" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Male
-                                </button>
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Other') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Other" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Other" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Other
-                                </button>
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Female') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Female" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Female" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Female
-                                </button>
-                            </div>
-                        </div>
-                        <div className="row manage-card">
-                            <div className="my-card-title">
-                                輸入您的信用卡:
-                            </div>
-                            <div className="card-lists-container">
-                                <div className="card-lists">
-                                    {cardLists}
-                                </div>
-                                <button className="add-card" onClick={this.handleAddCard}>
-                                    + add new card
-                                </button>
-
-                            </div>
-                        </div>
-
-                        <div className="row">
-                            <button className="submit-button" onClick={this.formOnSubmit}>Save</button>
-                        </div>
-                    </div>
-                </div>
-            );
-        } else {
-            return (
-                <div className="register chineese-font">
-                    <div id="cardbo-register-data" className="row">
-                        <div className="register-title-wrapper">卡伯會員註冊</div>
-                        <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
-                    </div>
-
-                    <div className="register-form-contaniner">
-                        <div className="row nick-name">
-                            <div className="nick-name-title-container">
-                                <label>您希望我們如何稱呼您?</label>
-                            </div>
-                            <div className="nick-name-input-container">
-                                <input className="nick-name-input" type="text"
-                                    value={this.state.nickName} onChange={this.handleNickNameChange} />
-                            </div>
-                        </div>
-                        <div className="row register-age">
-                            <div className="age-container">
-                                <div className="age">您的年齡:</div>
-                                <div className="age-number">{this.state.age}</div>
-                            </div>
-                            <div className="age-slider-contain"> <Slider min={0} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
-                        </div>
-                        <div className="row register-gender">
-                            <div>您的性別:</div>
-                            <div className="option-container">
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Male') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Male" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Male" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Male
-                                </button>
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Other') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Other" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Other" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Other
-                                </button>
-                                <button className="gender-card" onClick={() => { this.handleGenderChange('Female') }}
-                                    style={{
-                                        backgroundColor: this.state.gender === "Female" ? '#58a8d7' : '#ffffff',
-                                        color: this.state.gender === "Female" ? '#ffffff' : '#000000'
-                                    }}>
-                                    Female
-                                </button>
-                            </div>
-                        </div>
-                        <div className="row manage-card">
-                            <div className="my-card-title">
-                                輸入您的信用卡:
-                            </div>
-                            <div className="card-lists-container">
-                                <div className="card-lists">
-                                    {cardLists}
-                                </div>
-                                <button className="add-card" onClick={this.handleAddCard}>
-                                    + add new card
-                                </button>
-
-                            </div>
-                        </div>
-                        <div className="row">
-                            <input id="agree" type="checkbox" name="checkbox" value="check" defaultChecked={this.state.agreeCheck} onChange={this.handleChangeCheck} />
-                            我已閱讀並同意<a href="#">使用者服務條款</a>
-                        </div>
-                        <div className="row">
-                            <button className="submit-button" onClick={this.formOnSubmit}>Submit</button>
-                        </div>
-                    </div>
-                </div>
-            );
+        if (this.state.loading) {
+            // if (true) {
+            return (<div className="my-loading">
+                <ReactLoading type={'balls'} color={'#ffffff'} height={'20vh'} width={'20vw'} />
+            </div>)
         }
+        else {
+            if (this.state.IDregistered) {
+                return (
+                    <div className="register chineese-font">
+                        <div id="cardbo-register-data" className="row">
+                            <div className="register-title-wrapper">卡伯會員中心</div>
+                            <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，您可以在這裡修改您的基本資料:</div>
+                        </div>
 
+                        <div className="register-form-contaniner">
+                            <div className="row nick-name">
+                                <div className="nick-name-title-container">
+                                    <label>您希望我們如何稱呼您?</label>
+                                </div>
+                                <div className="nick-name-input-container">
+                                    <input className="nick-name-input" type="text"
+                                        value={this.state.nickName} onChange={this.handleNickNameChange} />
+                                </div>
+                            </div>
+                            <div className="row register-age">
+                                <div className="age-container">
+                                    <div className="age">您的年齡:</div>
+                                    <div className="age-number">{this.state.age}</div>
+                                </div>
+                                <div className="age-slider-contain"> <Slider min={0} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
+                            </div>
+                            <div className="row register-gender">
+                                <div>您的性別:</div>
+                                <div className="option-container">
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Male') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Male" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Male" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Male
+                                    </button>
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Other') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Other" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Other" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Other
+                                    </button>
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Female') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Female" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Female" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Female
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="row manage-card">
+                                <div className="my-card-title">
+                                    輸入您的信用卡:
+                                </div>
+                                <div className="card-lists-container">
+                                    <div className="card-lists">
+                                        {cardLists}
+                                    </div>
+                                    <button className="add-card" onClick={this.handleAddCard}>
+                                        + add new card
+                                    </button>
+
+                                </div>
+                            </div>
+
+                            <div className="row">
+                                <button className="submit-button" onClick={this.formOnSubmit}>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            } else {
+                return (
+                    <div className="register chineese-font">
+                        <div id="cardbo-register-data" className="row">
+                            <div className="register-title-wrapper">卡伯會員註冊</div>
+                            <div className="register-title-info" >{this.state.nickName === '' ? this.state.displayName : this.state.nickName}，歡迎註冊卡伯，為了提供更精準的服務，我們需要蒐集一些您的基本資料:</div>
+                        </div>
+
+                        <div className="register-form-contaniner">
+                            <div className="row nick-name">
+                                <div className="nick-name-title-container">
+                                    <label>您希望我們如何稱呼您?</label>
+                                </div>
+                                <div className="nick-name-input-container">
+                                    <input className="nick-name-input" type="text"
+                                        value={this.state.nickName} onChange={this.handleNickNameChange} />
+                                </div>
+                            </div>
+                            <div className="row register-age">
+                                <div className="age-container">
+                                    <div className="age">您的年齡:</div>
+                                    <div className="age-number">{this.state.age}</div>
+                                </div>
+                                <div className="age-slider-contain"> <Slider min={0} max={80} defaultValue={20} onChange={this.handleChangeAge} /></div>
+                            </div>
+                            <div className="row register-gender">
+                                <div>您的性別:</div>
+                                <div className="option-container">
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Male') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Male" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Male" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Male
+                                    </button>
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Other') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Other" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Other" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Other
+                                    </button>
+                                    <button className="gender-card" onClick={() => { this.handleGenderChange('Female') }}
+                                        style={{
+                                            backgroundColor: this.state.gender === "Female" ? '#58a8d7' : '#ffffff',
+                                            color: this.state.gender === "Female" ? '#ffffff' : '#000000'
+                                        }}>
+                                        Female
+                                    </button>
+                                </div>
+                            </div>
+                            <div className="row manage-card">
+                                <div className="my-card-title">
+                                    輸入您的信用卡:
+                                </div>
+                                <div className="card-lists-container">
+                                    <div className="card-lists">
+                                        {cardLists}
+                                    </div>
+                                    <button className="add-card" onClick={this.handleAddCard}>
+                                        + add new card
+                                    </button>
+
+                                </div>
+                            </div>
+                            <div className="row">
+                                <input id="agree" type="checkbox" name="checkbox" value="check" defaultChecked={this.state.agreeCheck} onChange={this.handleChangeCheck} />
+                                我已閱讀並同意<a href="#">使用者服務條款</a>
+                            </div>
+                            <div className="row">
+                                <button className="submit-button" onClick={this.formOnSubmit}>Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+        }
     }
 }
 export default App;
