@@ -63,7 +63,7 @@ class App extends Component {
             // liff.init((data) => {
             //     let profile = liff.getProfile();
             // })
-            liff.init(async (data) => {
+            liff.init({ liffId: '1653324267-e53V2QWz' }, async (data) => {
                 let profile = await liff.getProfile();
                 if (!profile.userId) {
                     window.alert("USER ID ERROR!");
@@ -119,7 +119,6 @@ class App extends Component {
                         } else {
                             cards.push({ bank: '', card: '', options: [] });
                         }
-
                         this.setState({ cards: cards });
                     } else {
                         this.setState({ IDregistered: false });
