@@ -72,8 +72,8 @@ class App extends Component {
                     userId: profile.userId
                 });
             }
-        });
-        liff.ready.then(() => {
+            return profile;
+        }).then((profile) => {
             fetch('/api/check-users', {
                 method: 'POST',
                 body: JSON.stringify({ userID: profile.userId }),
