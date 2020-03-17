@@ -60,12 +60,16 @@ class App extends Component {
             //     displayName: "test",
             //     userId: "U879a5cb6920a17888301f36935418744",
             // }
-            liff.init((data) => {
-                () => liff.getProfile()
-            }).then((profile) => {
+            // liff.init((data) => {
+            //     let profile = liff.getProfile();
+            // })
+            liff.init(async (data) => {
+                let profile = await liff.getProfile();
                 if (!profile.userId) {
                     window.alert("USER ID ERROR!");
                 }
+                return profile;
+            }).then((profile) => {
                 this.setState({
                     displayName: profile.displayName,
                     userId: profile.userId
