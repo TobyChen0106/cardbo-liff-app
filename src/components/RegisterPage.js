@@ -45,7 +45,7 @@ class App extends Component {
             IDregistered: false,
             saveOrSubmit: "Submit",
             // allCards: _allCards,
-            loading:true
+            loading: true
         };
 
     }
@@ -131,10 +131,9 @@ class App extends Component {
                     this.setState({ IDregistered: false });
                 }
             });
+        }).then(()=>{
+            this.setState({ loading: false });
         });
-    }
-    componentDidMount() {
-        this.setState({loading:false});
     }
     formOnSubmit = () => {
         if (this.state.age === 0) {
