@@ -61,17 +61,17 @@ class App extends Component {
             if (!liff.isLoggedIn()) {
                 liff.login({ redirectUri: "https://cardbo-register.herokuapp.com/" });
             }
-        }).then(()=>{
-           liff.getProfile()
-        }).then((profile)=>{
+        }).then(
+            () => liff.getProfile()
+        ).then((profile) => {
             if (!profile.userId) {
                 window.alert("USER ID ERROR!");
-            }else{
+            } else {
                 this.setState({
                     displayName: profile.displayName,
                     userId: profile.userId
                 });
-            }  
+            }
         });
         liff.ready.then(() => {
             fetch('/api/check-users', {
