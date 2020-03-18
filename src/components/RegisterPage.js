@@ -128,17 +128,17 @@ class App extends Component {
                 } else {
                     this.setState({ IDregistered: false });
                 }
-            }).then(()=>{
+            }).then(() => {
                 this.setState({ loading: false });
             });
         });
     }
     formOnSubmit = () => {
         if (this.state.age === 0) {
-            alert('請輸入年齡!');
+            window.alert('請輸入年齡!');
         }
         else if (!this.state.agreeCheck) {
-            alert('請閱讀並同意使用者服務條款!');
+            window.alert('請閱讀並同意使用者服務條款!');
         } else {
             var userCards = this.state.cards.filter(card => card.card !== '' && card.bank !== '').map((i, index) => (
                 this.state.allCards.filter(card => card.cardName === i.card && card.bankName === i.bank)[0].cardID
@@ -169,7 +169,7 @@ class App extends Component {
                         text: "Done!"
                     }]).catch(function (error) {
                         window.alert("Error sending message: " + error);
-                    })
+                    });
                 }
             }).then(() => {
                 liff.closeWindow();
@@ -224,7 +224,14 @@ class App extends Component {
     }
     handleAddCard = () => {
         this.setState(prevState => ({
-            cards: [...prevState.cards, { bank: '', card: '', options: [] }]
+            cards: [...prevState.cards, {
+                bank: '',
+                card: '',
+                options: [],
+                cardID: '',
+                selectedBank: null,
+                selectedCard: null,
+            }]
         }))
     }
     render() {
