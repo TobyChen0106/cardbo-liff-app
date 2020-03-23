@@ -43,7 +43,7 @@ app.get('/*', function (req, res) {
 
 
 // wake
-const DYNO_URL = "https://cardbo-register.herokuapp.com/";
+const DYNO_URL = "https://cardbo-info.herokuapp.com/";
 app.listen(port, () => {
   wakeUpDyno(DYNO_URL); // will start once server starts
 })
