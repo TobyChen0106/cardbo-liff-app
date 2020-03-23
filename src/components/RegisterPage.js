@@ -152,7 +152,6 @@ class App extends Component {
                 age: this.state.age,
                 gender: this.state.gender,
                 cards: userCards,
-                stores: []
             };
             fetch('/api/users', {
                 method: 'POST',

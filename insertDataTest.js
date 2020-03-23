@@ -1,20 +1,15 @@
 // const User = require('./src/models/User')
 const Card = require('./src/models/Card')
 // const Offer = require('./src/models/offer')
-const user_new = require('./src/models/User')
-
+const user = require('./src/models/user')
+const store = require('./store')
 
 const mongoose = require('mongoose');
-// mongoURL = "mongodb+srv://Toby0106:dbforcardbo@cluster0-gfwld.mongodb.net/cardbo-db?retryWrites=true&w=majority"
-// mongoose.connect(mongoURL, { useNewUrlParser: true });
-// db = mongoose.connection;
-// db.on('error', e => {
-//     console.log(e);
-// })
-// db.once('open', () => {
-//     console.log('MongoDB connected!');
-// })
 
+const csv = require('csv-parser')
+const fs = require('fs')
+const results = [];
+// var Iconv  = require('iconv').Iconv;
 
 const dbName = "dbCardbo"
 const usrName = "Mike"
@@ -30,11 +25,33 @@ db.once('open', () => {
     console.log('MongoDB connected!');
 })
 
-user_new.find({lineID: 'U879a5cb6920a17888301f36935418744'}, (err, data) => {
+// fs.createReadStream('store_img.csv')
+//   .pipe(csv(['Name', 'link']))
+//   .on('data', (data) => results.push(data))
+//   .on('end', () => {
+//     for(var i=0 ; i<results.length; ++i ){
+//         changeData(results[i].Name, results[i].link);
+//     }
+//   });
+
+//   changeData = (name, link)=>{
+//     store.findOne({storeName:name}, (err, data) => {
+//     if (err) {
+//         console.log(err);
+//     }
+//     else {
+//         // console.log(data);
+
+//         console.log(data.imageLink);
+//     }
+// })}
+
+user.deleteMany({}, (err, data) => {
     if (err) {
         console.log(err);
     }
     else {
+        // console.log(data);
         console.log(data);
     }
 })
@@ -84,7 +101,7 @@ var check = { 'FlyGo卡': 'ts0001', '環球/亞洲無限卡': 'ts0002', '財富�
 //         console.log(data)
 //         for(var i=0 ; i<readyCards.length  ;++i){
 //             if(dataCardNames.indexOf(readyCards[i]) >= 0){
-                
+
 //                 var newCard = new Card({
 //                     cardBank:'台新銀行',
 //                     cardName:readyCards[i],

@@ -26,7 +26,8 @@ router.post('/users', (req, res) => {
                 userResponse.age = userdata.age;
                 userResponse.gender = userdata.gender;
                 userResponse.cards = userdata.cards;
-                userResponse.stores = userdata.stores;
+                userResponse.favoriteStores = [];
+                userResponse.favoriteOffers = [];
                 
                 userResponse.save().then((user) => {
                     res.json("User Data modified!");
