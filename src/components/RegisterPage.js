@@ -168,11 +168,11 @@ class App extends Component {
                         text: "Done!"
                     }]).catch(function (error) {
                         window.alert("Error sending message: " + error);
+                    }).then(() => {
+                        liff.closeWindow();
                     });
                 }
-            }).then(() => {
-                liff.closeWindow();
-            })
+            });
         }
     }
 
