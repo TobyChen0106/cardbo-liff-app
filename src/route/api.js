@@ -20,9 +20,7 @@ router.post('/users', (req, res) => {
                     nickName : userdata.nickName,
                     age : userdata.age,
                     gender : userdata.gender,
-                    cards : userdata.cards,
-                    favoriteStores : [],
-                    favoriteOffers : []
+                    cards : userdata.cards
                 });
                 console.log(newUser);
                 newUser.save().then((user) => {
@@ -37,8 +35,6 @@ router.post('/users', (req, res) => {
                 userResponse.age = userdata.age;
                 userResponse.gender = userdata.gender;
                 userResponse.cards = userdata.cards;
-                userResponse.favoriteStores = [];
-                userResponse.favoriteOffers = [];
                 
                 userResponse.save().then((user) => {
                     res.json("User Data modified!");
