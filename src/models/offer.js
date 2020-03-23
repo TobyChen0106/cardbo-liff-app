@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const ExpirationSchema = require('./components/expiration')
+const ExpirationSchema = require('./components/Expiration')
 const Schema = mongoose.Schema
 
 const RewardSchema = new Schema({
