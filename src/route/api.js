@@ -14,7 +14,15 @@ router.post('/users', (req, res) => {
                 res.json("Server User find ID Error." + String(err));
             }
             else if (!userResponse) {
-                const newUser = new User(userdata);
+                const newUser = new User();
+                newUser.lineID = userdata.lineID;
+                newUser.displayName = userdata.displayName;
+                newUser.nickName = userdata.nickName;
+                newUser.age = userdata.age;
+                newUser.gender = userdata.gender;
+                newUser.cards = userdata.cards;
+                newUser.favoriteStores = [];
+                newUser.favoriteOffers = [];
                 newUser.save().then((user) => {
                     res.json("New user created!");
                 })
