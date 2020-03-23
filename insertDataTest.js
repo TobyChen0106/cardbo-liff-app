@@ -51,7 +51,6 @@ user.deleteMany({}, (err, data) => {
         console.log(err);
     }
     else {
-        // console.log(data);
         console.log(data);
     }
 })
