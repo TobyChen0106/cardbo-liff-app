@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const OfferRecordSchema = require("./components/Offerrecord")
-const StoreRecordSchema = require("./components/Storerecord")
+// const OfferRecordSchema = require("./components/Offer-record")
+// const StoreRecordSchema = require("./components/Store-record")
 
 
 // const setMongoMixedWithBadKeys = data =>
@@ -48,14 +48,14 @@ const UserSchema = new Schema({
         type: [String],
         default: undefined,
     },
-    favoriteStores:{
-        type: [StoreRecordSchema],
-        default: [],
-    },
-    favoriteOffers:{
-        type: [OfferRecordSchema],
-        default: [],
-    }
+    // favoriteStores:{
+    //     type: [StoreRecordSchema],
+    //     default: [],
+    // },
+    // favoriteOffers:{
+    //     type: [OfferRecordSchema],
+    //     default: [],
+    // }
 })
 
 const User = mongoose.model('User', UserSchema, "users");
