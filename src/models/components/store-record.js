@@ -5,7 +5,7 @@ const StoreRecordSchema = new Schema({
     storeName: {
         type: String,
         // required: true
-        unique: true,
+        // unique: true,
     },
     numSearch: {
         type: Number,

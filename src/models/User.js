@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const OfferRecordSchema = require("./components/offer-record")
-const StoreRecordSchema = require("./components/store-record")
+const OfferRecordSchema = require("./components/Offer-record")
+const StoreRecordSchema = require("./components/Store-record")
 
 
 // const setMongoMixedWithBadKeys = data =>

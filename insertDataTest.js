@@ -46,18 +46,18 @@ db.once('open', () => {
 //     }
 // })}
 
-// user.deleteMany({}, (err, data) => {
-//     if (err) {
-//         console.log(err);
-//     }
-//     else {
-//         console.log(data);
-//     }
-// })
+user.deleteMany({}, (err, data) => {
+    if (err) {
+        console.log(err);
+    }
+    else {
+        console.log(data);
+    }
+})
 
-mongoose.connection.collections['users'].drop( function(err) {
-    console.log('users collection dropped');
-});
+// mongoose.connection.collections['users'].drop( function(err) {
+//     console.log('users collection dropped');
+// });
 
 // var readline = require('readline');
 // var rl = readline.createInterface(process.stdin, process.stdout);
