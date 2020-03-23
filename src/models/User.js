@@ -26,11 +26,13 @@ const UserSchema = new Schema({
     },
     displayName: {
         type: String,
+        default: '',
         // required: true
     },
     nickName: {
         type: String,
-        required: true
+        default: '',
+        // required: true
     },
     age:{
         type: Number,
@@ -38,7 +40,8 @@ const UserSchema = new Schema({
     },
     gender: {
         type: String,
-        required: true
+        default: '',
+        // required: true
     },
     cards:{
         // cardID
