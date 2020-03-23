@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     lineID: {
         type: String,
         required: true,
-        unique: true
+        // unique: true
     },
     displayName: {
         type: String,
