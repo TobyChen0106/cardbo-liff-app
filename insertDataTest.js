@@ -46,7 +46,7 @@ db.once('open', () => {
 //     }
 // })}
 
-user.deleteMany({}, (err, data) => {
+user.find({}, (err, data) => {
     if (err) {
         console.log(err);
     }

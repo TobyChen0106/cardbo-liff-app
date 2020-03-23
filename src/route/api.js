@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
-const User = require('../models/User');
-const Card = require('../models/Card');
+const User = require('../models/user.js');
+const Card = require('../models/card.js');
 
 router.post('/users', (req, res) => {
     const userdata = req.body;
@@ -24,10 +24,11 @@ router.post('/users', (req, res) => {
                     favoriteStores : [],
                     favoriteOffers : []
                 });
-                
+                console.log(newUser);
                 newUser.save().then((user) => {
                     res.json("New user created!");
                 })
+                .catch(err => console.log(err));
             } else {
                 // console.log(userResponse)
                 userResponse.lineID = userdata.lineID;
@@ -42,6 +43,7 @@ router.post('/users', (req, res) => {
                 userResponse.save().then((user) => {
                     res.json("User Data modified!");
                 })
+                .catch(err => console.log(err));
             }
         })
     }
