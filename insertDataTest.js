@@ -1,7 +1,7 @@
 // const User = require('./src/models/User')
 const Card = require('./src/models/Card')
 // const Offer = require('./src/models/offer')
-const user = require('./src/models/user')
+const user = require('./src/models/User')
 const store = require('./store')
 
 const mongoose = require('mongoose');

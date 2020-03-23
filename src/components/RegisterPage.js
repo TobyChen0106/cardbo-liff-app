@@ -56,7 +56,7 @@ class App extends Component {
         }).then(
             res => res.json()
         ).then((data) => {
-            this.setState({ allCards: data })
+            this.setState({ allCards: data });
             allCardList = data;
         });
         liff.init({ liffId: '1653324267-e53V2QWz' }).then(() => {
