@@ -17,7 +17,7 @@ const dbName = "dbCardbo"
 const usrName = "cardbo"
 const usrPswd = "69541"
 
-mongoURL = `mongodb+srv://${usrName}:${usrPswd}@cluster0-snwtj.mongodb.net/${dbName}?retryWrites=true&w=majority`
+mongoURL = `mongodb+srv://${usrName}:${usrPswd}@cardbo-br3ga.gcp.mongodb.net/${dbName}?retryWrites=true&w=majority`
 // mongoURL = "mongodb+srv://Toby0106:dbforcardbo@cluster0-gfwld.mongodb.net/cardbo-db?retryWrites=true&w=majority"
 mongoose.connect(mongoURL, {useNewUrlParser: true});
 db = mongoose.connection;

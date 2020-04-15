@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-
+// fetch("cardbo-server.herokuapp.com").then(() => console.log(`Fetching ${url}.`)); 
 const wakeUpDyno = (url, interval = 14, callback) => {
     const milliseconds = interval * 60000;
     setTimeout(() => {
@@ -8,6 +8,7 @@ const wakeUpDyno = (url, interval = 14, callback) => {
             console.log(`setTimeout called.`);
             // HTTP GET request to the dyno's url
             fetch(url).then(() => console.log(`Fetching ${url}.`)); 
+            fetch("cardbo-server.herokuapp.com").then(() => console.log(`Fetching ${url}.`)); 
         }
         catch (err) { // catch fetch errors
             console.log(`Error fetching ${url}: ${err.message} 
