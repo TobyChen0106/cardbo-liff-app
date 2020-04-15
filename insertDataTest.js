@@ -55,9 +55,6 @@ db.once('open', () => {
 //     }
 // })
 
-mongoose.connection.collections['users'].drop( function(err) {
-    console.log('users collection dropped');
-});
 
 // var readline = require('readline');
 // var rl = readline.createInterface(process.stdin, process.stdout);
